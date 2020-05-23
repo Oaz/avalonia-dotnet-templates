@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+    - uses: nuget/setup-nuget@v1
+      with:
+        nuget-api-key: ${{ secrets.NuGetAPIKey }}
+        nuget-version: '5.x'
+    - run: nuget pack avalonia-dotnet-templates.nuspec
